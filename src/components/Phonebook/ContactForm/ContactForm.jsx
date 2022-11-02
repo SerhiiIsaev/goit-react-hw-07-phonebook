@@ -28,24 +28,22 @@ export const ContactForm = () => {
     const contacts = useSelector(getContacts);
 
     const contactAlreadyExists = (name, number) => {
-        return contacts.find((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase() || item.number === number);
+        return contacts.find((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase());
     }
 
     const addContactToList = (name, number) => {
         if (contactAlreadyExists(name, number)) {
-            return alert(`${name} ${number} is already in Phonebook`);
+            return alert(`${name} is already in Phonebook`);
         }
 
-        dispatch(addContact({name, number}))
+        dispatch(addContact({ name, number }))
+        setName('')
+        setNumber('')
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         addContactToList(name, number);
-
-        setName('')
-        setNumber('')
     }
 
     const nameId = nanoid();
