@@ -1,0 +1,30 @@
+.contactItem {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.contactItem:hover {
+    border-color: steelblue;
+}
+
+.contactText {
+    margin: 0;
+}
+
+.contactBtn {
+    padding: 5px;
+    background-color: darkgray;
+    border-color: transparent;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.contactBtn:hover, .contactBtn:focus {
+    background-color: skyblue;
+}
