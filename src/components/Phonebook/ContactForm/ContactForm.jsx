@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { addContact, getContacts } from '../../../redux/contactsSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { getData, removeData, addData } from 'API/API';
 import css from '../ContactForm/ContactForm.module.css'
+import { createDraftSafeSelector } from '@reduxjs/toolkit';
 
 export const ContactForm = () => {
     const [name, setName] = useState('');
@@ -39,6 +41,7 @@ export const ContactForm = () => {
         dispatch(addContact({ name, number }))
         setName('')
         setNumber('')
+        removeData(5)
     }
 
     const handleSubmit = (e) => {
