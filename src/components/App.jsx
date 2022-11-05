@@ -1,4 +1,6 @@
 import { Phonebook } from "./Phonebook/Phonebook";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {
   return (
@@ -6,6 +8,7 @@ export const App = () => {
         padding: '40px',
       }}>
       <Phonebook />
+      <ToastContainer autoClose={1500} />
     </div>
   );
 };

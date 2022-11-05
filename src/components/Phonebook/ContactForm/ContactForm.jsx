@@ -7,11 +7,11 @@ import { toast } from 'react-toastify';
 import css from '../ContactForm/ContactForm.module.css'
 
 const nameId = nanoid();
-const numberId = nanoid();
+const phoneId = nanoid();
 
 export const ContactForm = () => {
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setPhone] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,11 +21,11 @@ export const ContactForm = () => {
                 setName(value)
                 break;
             case 'contactNumber':
-                setNumber(value)
+                setPhone(value)
                 break;
             default:
                 setName('')
-                setNumber('')
+                setPhone('')
         }
     }
 
@@ -36,19 +36,19 @@ export const ContactForm = () => {
         return items.find((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase());
     }
 
-    const addContactToList = (id, name, number) => {
+    const addContactToList = (id, name, phone) => {
         if (contactAlreadyExists(name)) {
-            return toast.error(`${name} ${number} is already in Phonebook`)
+            return toast.error(`${name} is already in Phonebook`)
         }
 
-        dispatch(addContact({id, name, number }))
+        dispatch(addContact({id, name, phone }))
         setName('')
-        setNumber('')
+        setPhone('')
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addContactToList(nanoid(), name, number);
+        addContactToList(nanoid(), name, phone);
     }
 
     
@@ -65,12 +65,12 @@ export const ContactForm = () => {
             required
             placeholder='Input name'
             className={css.input} />
-        <label className={css.label} htmlFor={numberId}>Number</label>
+        <label className={css.label} htmlFor={phoneId}>Number</label>
         <input
-            id={numberId}
+            id={phoneId}
             type="tel"
             name="contactNumber"
-            value={number}
+            value={phone}
             onChange={handleChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -79,4 +79,5 @@ export const ContactForm = () => {
             className={css.input} />
         <button type='submit' className={css.button}>Add contact</button>
     </form>)
+    
 }
