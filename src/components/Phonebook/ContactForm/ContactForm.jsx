@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { addContact, getContacts } from '../../../redux/contactsSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { getContacts } from '../../../redux/contactsSlice';
+import { addContact } from '../../../redux/AsyncRedux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import css from '../ContactForm/ContactForm.module.css'
+
+const nameId = nanoid();
+const numberId = nanoid();
 
 export const ContactForm = () => {
     const [name, setName] = useState('');
@@ -25,29 +30,27 @@ export const ContactForm = () => {
     }
 
     const dispatch = useDispatch();
-    const contacts = useSelector(getContacts);
+    const {items, addingLoader} = useSelector(getContacts);
 
-    const contactAlreadyExists = (name, number) => {
-        return contacts.find((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase());
+    const contactAlreadyExists = (name) => {
+        return items.find((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase());
     }
 
-    const addContactToList = (name, number) => {
-        if (contactAlreadyExists(name, number)) {
-            return alert(`${name} is already in Phonebook`);
+    const addContactToList = (id, name, number) => {
+        if (contactAlreadyExists(name)) {
+            return toast.error(`${name} ${number} is already in Phonebook`)
         }
 
-        dispatch(addContact({ name, number }))
+        dispatch(addContact({id, name, number }))
         setName('')
         setNumber('')
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addContactToList(name, number);
+        addContactToList(nanoid(), name, number);
     }
 
-    const nameId = nanoid();
-    const numberId = nanoid();
     
     return (<form onSubmit={handleSubmit} className={css.insertWrapper}>
         <label className={css.label} htmlFor={nameId}>Name</label>
