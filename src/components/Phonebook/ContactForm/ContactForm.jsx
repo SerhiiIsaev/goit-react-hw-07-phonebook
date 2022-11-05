@@ -30,7 +30,7 @@ export const ContactForm = () => {
     }
 
     const dispatch = useDispatch();
-    const {items, addingLoader} = useSelector(getContacts);
+    const {items} = useSelector(getContacts);
 
     const contactAlreadyExists = (name) => {
         return items.find((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase());
